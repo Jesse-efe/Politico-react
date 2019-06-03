@@ -14,7 +14,7 @@ const SignInPage = ({ result, resultType, reportError, onLogin, loading, shouldR
   const [formInput, setFormInput] = useState(state);
 
   if(shouldRedirect) {
-    return <Redirect to='/home' />
+    return <Redirect to='/parties' />
   }
   const inputChangedHandler = (event) => {
     const updatedFormInput = {
