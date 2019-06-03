@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
-import { login, authFail } from '../../actions/auth';
-import { validateLogin } from '../../helpers';
+import { signUp, authFail } from '../../actions/auth';
+import { validateSignup } from '../../helpers';
 import Header from '../presentational/Header';
-import SignInForm from '../presentational/SignInForm';
+import SignUpForm from '../presentational/SignUpForm';
 
-const SignInPage = ({ result, resultType, reportError, onLogin, loading, shouldRedirect }) => {
+const SignUpPage = ({ result, resultType, reportError, onSignUp, loading, shouldRedirect }) => {
   const state = {
+    firstname: '',
+    lastname: '',
+    othername: '',
     email: '',
+    phoneNumber: '',
+    passportUrl: '',
     password: '',
   };
   const [formInput, setFormInput] = useState(state);
@@ -29,13 +34,14 @@ const SignInPage = ({ result, resultType, reportError, onLogin, loading, shouldR
   const submitHandlerLogin = (event) => {
     event.preventDefault();
     const {
-      email, password,
+      firstname, lastname, othername, email, phoneNumber, passportUrl, password
     } = formInput;
-    const errors = validateLogin(email, password);
+    const errors = validateSignup(firstname, lastname, othername, email, phoneNumber, passportUrl, password);
     if (errors.foundError) {
       reportError(errors.body);
     } else {
-      onLogin(email, password);
+        console.log(formInput, ' kkkk');
+      onSignUp(firstname, lastname, othername, email, phoneNumber, passportUrl, password);
     }
   };
 
@@ -43,9 +49,9 @@ const SignInPage = ({ result, resultType, reportError, onLogin, loading, shouldR
     <div>
       <Header />
       <section className="main">
-        <h1>Sign in</h1>
+        <h1>Create account</h1>
         <div className="box">
-          <SignInForm submit={submitHandlerLogin} changed={inputChangedHandler} result={result} resultType={resultType} isLoading={loading} />
+          <SignUpForm submit={submitHandlerLogin} changed={inputChangedHandler} result={result} resultType={resultType} isLoading={loading} />
         </div>
       </section>
     </div>
@@ -62,7 +68,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   reportError: error => dispatch(authFail(error)),
-  onLogin: (email, password) => dispatch(login(email, password)),
+  onSignUp: (email, password) => dispatch(signUp(email, password)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignInPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);
