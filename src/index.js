@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import './assets/styles/home.css';
 import './assets/styles/sign-in.css';
+import './assets/styles/profile.css';
 import App from './components/cotainers/App';
 import Store from './store';
 
