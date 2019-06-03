@@ -22,31 +22,34 @@ export const authFail = error => ({
   error,
 });
 
-export const failedValidation = error => ({
-  type: actions.AUTH_FAILURE,
-  error,
-});
+// export const failedValidation = error => ({
+//   type: actions.AUTH_FAILURE,
+//   error,
+// });
 
-// export const signUp = (firstname, lastname, email, password) => (dispatch) => {
-//   dispatch(authStart());
-//   const authData = {
-//     firstname,
-//     lastname,
-//     email,
-//     password,
-//   };
-//   const url = 'https://ivy-ah-backend-staging.herokuapp.com/api/v1/users/signup';
-//   axios.post(url, authData)
-//     .then((response) => {
-//       const { userid, token } = response.data.user;
-//       localStorage.setItem('user', JSON.stringify(response.data.user));
-//       dispatch(signUpSuccess(token, userid, response.data.user.email));
-//     })
-//     .catch((err) => {
-//       const { error } = err.response.data;
-//       dispatch(signUpFail(error));
-//     });
-// };
+export const signUp = (firstname, lastname, othername, email, phoneNumber, passportUrl, password) => (dispatch) => {
+  dispatch(authStart());
+  const authData = {
+    firstname, lastname, othername, email, phoneNumber, passportUrl, password
+  };
+  const url = 'https://politico-jes.herokuapp.com/api/v1/auth/signup';
+  axios.post(url, authData)
+    .then((response) => {
+      console.log(response.data, ' data');
+      localStorage.setItem('user', JSON.stringify(response.data.data[0]));
+      const { token } = response.data.data[0];
+      const {
+        id, firstname, lastname, othername, passportUrl,
+      } = response.data.data[0].user;
+      dispatch(authSuccess(token, id, email, firstname, lastname, othername, passportUrl));
+    })
+    .catch((err) => {
+      console.log(err.response.data, ' error');
+      dispatch(authFail([err.response.data.error]));
+      // const { error } = err.response.data;
+      // dispatch(signUpFail(error));
+    });
+};
 
 export const login = (email, password) => (dispatch) => {
   dispatch(authStart());
@@ -66,8 +69,7 @@ export const login = (email, password) => (dispatch) => {
       dispatch(authSuccess(token, id, email, firstname, lastname, othername, passportUrl));
     })
     .catch((err) => {
-      console.log(err.response.data, ' error');
-    //   const { error } = err.response.data;
-    //   dispatch(signUpFail(error));
+      console.log(err.response.data.error, ' error');
+      dispatch(authFail([err.response.data.error]));
     });
 };

@@ -79,14 +79,18 @@ nav .nav-item button:hover{
     width: 75%;
     margin: 0 auto;
 }
-.main .result-div{
+.info{
+    margin: 0;
+    padding: 0;
+}
+.main .result-div-show{
     width: 30rem;
     padding: 1rem;
     border-radius: .5rem;
     border: 1px solid grey;
     margin: .5rem 0 1.5rem 0;
     font-size: 1.4rem;
-    display: none;
+    /* display: none; */
 }
 .success-div{
     background-color: #DFF2BF;
@@ -97,11 +101,13 @@ nav .nav-item button:hover{
     color: #DF000C;
 }
 .main .loading{
-    margin: 0rem 0 .7rem 0;
+    margin: 0rem 0 .7rem 12.5rem;
 }
 .loading>img{
     height: 45px;
     width: 45px;
+}
+.no-loading>img{
     display: none;
 }
 .main label{

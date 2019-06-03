@@ -10,7 +10,7 @@ a{
     text-decoration: none;
     color: inherit;
 }
-body{
+#container{
     box-sizing: border-box;
     min-height: 100vh;
     background-color: #F5F5F5;
@@ -21,7 +21,7 @@ body{
     grid-gap: 0;
     grid-template-areas: 
     'n n n n n n n n n n n n'
-    's m m m m m m m m m m m'
+    'm m m m m m m m m m m m'
     'f f f f f f f f f f f f';
     grid-template-rows: 5rem 1fr 4rem;
     font-size: 1.6rem; 
