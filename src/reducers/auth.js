@@ -3,13 +3,16 @@ import * as actions from '../actions/actionTypes';
 const initialState = {
   token: null,
   isLoggedIn: false,
+  shouldRedirect: false,
   userId: null,
   userEmail: null,
   firstname: null,
   lastname: null,
   othername: null,
+  phoneNumber: null,
   passportUrl: null,
-  error: null,
+  info: null,
+  infoType: null,
   loading: false,
 };
 
@@ -28,14 +31,17 @@ const authSuccess = (state, action) => ({
   lastname: action.lastname,
   othername: action.othername,
   passportUrl: action.passportUrl,
-  error: null,
+  info: ['Successful'],
+  infoType: 'success-div',
   loading: false,
   isLoggedIn: true,
+  shouldRedirect: true,
 });
 
 const authFail = (state, action) => ({
   ...state,
-  error: action.error,
+  info: action.error,
+  infoType: 'error-div',
   loading: false,
 });
 
