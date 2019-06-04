@@ -22,11 +22,6 @@ export const authFail = error => ({
   error,
 });
 
-// export const failedValidation = error => ({
-//   type: actions.AUTH_FAILURE,
-//   error,
-// });
-
 export const signUp = (firstname, lastname, othername, email, phoneNumber, passportUrl, password) => (dispatch) => {
   dispatch(authStart());
   const authData = {
@@ -35,7 +30,7 @@ export const signUp = (firstname, lastname, othername, email, phoneNumber, passp
   const url = 'https://politico-jes.herokuapp.com/api/v1/auth/signup';
   axios.post(url, authData)
     .then((response) => {
-      console.log(response.data, ' data');
+      // console.log(response.data, ' data');
       localStorage.setItem('user', JSON.stringify(response.data.data[0]));
       const { token } = response.data.data[0];
       const {
@@ -44,10 +39,8 @@ export const signUp = (firstname, lastname, othername, email, phoneNumber, passp
       dispatch(authSuccess(token, id, email, firstname, lastname, othername, passportUrl));
     })
     .catch((err) => {
-      console.log(err.response.data, ' error');
+      // console.log(err.response.data, ' error');
       dispatch(authFail([err.response.data.error]));
-      // const { error } = err.response.data;
-      // dispatch(signUpFail(error));
     });
 };
 
@@ -60,7 +53,6 @@ export const login = (email, password) => (dispatch) => {
   const url = 'https://politico-jes.herokuapp.com/api/v1/auth/login';
   axios.post(url, authData)
     .then((response) => {
-      console.log(response.data, ' data');
       localStorage.setItem('user', JSON.stringify(response.data.data[0]));
       const { token } = response.data.data[0];
       const {
@@ -69,7 +61,6 @@ export const login = (email, password) => (dispatch) => {
       dispatch(authSuccess(token, id, email, firstname, lastname, othername, passportUrl));
     })
     .catch((err) => {
-      console.log(err.response.data.error, ' error');
       dispatch(authFail([err.response.data.error]));
     });
 };

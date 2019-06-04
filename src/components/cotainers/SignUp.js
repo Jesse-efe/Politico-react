@@ -40,7 +40,6 @@ const SignUpPage = ({ result, resultType, reportError, onSignUp, loading, should
     if (errors.foundError) {
       reportError(errors.body);
     } else {
-        console.log(formInput, ' kkkk');
       onSignUp(firstname, lastname, othername, email, phoneNumber, passportUrl, password);
     }
   };
