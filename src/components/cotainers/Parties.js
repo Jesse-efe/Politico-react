@@ -9,7 +9,6 @@ import PartiesNav from '../presentational/PartiesNav';
 const Parties = ({fetcheParties, parties}) => {
 
   useEffect(() => {
-    console.log('called');
     fetcheParties();
   }, []);
 
